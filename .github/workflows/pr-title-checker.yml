@@ -3,13 +3,16 @@ name: PR Title Checker
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
-    branches: [ "main" ]
+#    branches: 
+#    - 'release/**'
+#    - 'main'
+
 
 
 jobs:
   check-pr-title:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.base.ref == 'main' }}
+    if: ${{ github.event.pull_request.base.ref == 'main' || startsWith(github.event.pull_request.base.ref, 'release/') }}
     
     steps:
       - name: Check PR base branch
@@ -21,3 +24,18 @@ jobs:
         run: |
           echo "Pull Request Title: ${{ github.event.pull_request.title }}"
           echo "PR Title check completed successfully"
+          
+      - name: Validate PR title format
+        shell: bash
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo "Validating PR title: $PR_TITLE"
+          
+          if [[ "$PR_TITLE" =~ ^(RITM|PRJ|BUG|REM)[0-9]{5} ]]; then
+            echo "✅ PR title matches required format"
+            exit 0
+          else
+            echo "❌ PR title does not match required format!"
+            echo "Title must start with RITM, PRJ, BUG or REM followed by 5 numbers (e.g. RITM12345, PRJ67890)"
+            exit 1
+          fi
