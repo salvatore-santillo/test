@@ -3,16 +3,16 @@ name: PR Title Checker
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
-    branches: 
-    - 'release/**'
-    - 'main'
+#    branches: 
+#    - 'release/**'
+#    - 'main'
 
 
 
 jobs:
   check-pr-title:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.base.ref == 'main' }}
+    if: ${{ github.event.pull_request.base.ref == 'main' || startsWith(github.event.pull_request.base.ref, 'release/') }}
     
     steps:
       - name: Check PR base branch
