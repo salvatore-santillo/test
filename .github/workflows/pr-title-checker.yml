@@ -3,8 +3,10 @@ name: PR Title Checker
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
-    branches: [ "release/**" ]
-    
+    branches: 
+    - 'release/**'
+    - 'main'
+
 
 
 jobs:
