@@ -31,7 +31,7 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           echo "Validating PR title: $PR_TITLE"
           
-          if [[ "${PR_TITLE^^}" =~ ^(RITM|PRJ|BUG|REM)[0-9]{7}$ ]]; then
+          if [[ "${PR_TITLE^^}" =~ ^(RITM|PRJ|BUG|REM)[0-9]{7} ]]; then
             echo "✅ PR title matches required format"
             exit 0
           else
