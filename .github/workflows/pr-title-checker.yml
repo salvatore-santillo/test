@@ -31,11 +31,11 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
           echo "Validating PR title: $PR_TITLE"
           
-          if [[ "$PR_TITLE" =~ ^(RITM|PRJ|BUG|REM)[0-9]{7} ]]; then
+          if [[ "${PR_TITLE^^}" =~ ^(RITM|PRJ|BUG|REM)[0-9]{7}$ ]]; then
             echo "✅ PR title matches required format"
             exit 0
           else
             echo "❌ PR title does not match required format!"
-            echo "Title must start with RITM, PRJ, BUG or REM followed by 5 numbers (e.g. RITM12345, PRJ67890)"
+            echo "Title must start with RITM, PRJ, BUG or REM followed by 7 numbers (e.g. RITM1234567, PRJ4567890)"
             exit 1
           fi
