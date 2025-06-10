@@ -1,2 +1,2 @@
-ssss
-ddd
+RITM1234567 - PR to RELEASE - SN Object ID = 7 digits
+NEW TEST AFTER REGEXP FIX
